@@ -32,8 +32,7 @@ public class DatabaseConduit {
             return false;
         }
 
-        float senderBalance = sender.getBalance();
-        return !(senderBalance < transaction.getAmount());
+        return !(sender.getBalance() < transaction.getAmount());
     }
 
     public void save(UserRecord userRecord) {
@@ -47,14 +46,15 @@ public class DatabaseConduit {
         TransactionRecord transactionRecord = new TransactionRecord(
             sender,
             recipient,
-            transaction.getAmount()
+            transaction.getAmount(),
+            transaction.getIncentive()
         );
         transactionRecordRepository.save(transactionRecord);
 
         // Update user balances
         sender.setBalance(sender.getBalance() - transaction.getAmount());
         save(sender);
-        recipient.setBalance(recipient.getBalance() + transaction.getAmount());
+        recipient.setBalance(recipient.getBalance() + transaction.getAmount() + transaction.getIncentive());
         save(recipient);
     }
 }

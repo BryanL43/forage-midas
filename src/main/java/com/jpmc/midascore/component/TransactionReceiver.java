@@ -12,7 +12,7 @@ public class TransactionReceiver {
         this.transactionHandler = transactionHandler;
     }
 
-    @KafkaListener(topics = "${general.kafka-topic}", groupId = "midas-core")
+    @KafkaListener(topics = "${general.kafka-topic}")
     public void receive(Transaction transaction) {
         transactionHandler.handleTransaction(transaction);
     }
