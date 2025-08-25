@@ -1,6 +1,8 @@
 package com.jpmc.midascore.component;
 
+import com.jpmc.midascore.entity.UserRecord;
 import com.jpmc.midascore.foundation.Transaction;
+import com.jpmc.midascore.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -8,10 +10,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class TransactionHandler {
     private static final Logger logger = LoggerFactory.getLogger(TransactionHandler.class);
+    private final DatabaseConduit databaseConduit;
 
-    public TransactionHandler() {}
+    public TransactionHandler(DatabaseConduit databaseConduit) {
+        this.databaseConduit = databaseConduit;
+    }
 
     public void handleTransaction(Transaction transaction) {
-        logger.info("DEBUGGING: {}", transaction);
+        if (databaseConduit.isValid(transaction)) {
+            databaseConduit.save(transaction);
+        }
     }
 }
