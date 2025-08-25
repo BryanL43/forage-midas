@@ -57,4 +57,13 @@ public class DatabaseConduit {
         recipient.setBalance(recipient.getBalance() + transaction.getAmount() + transaction.getIncentive());
         save(recipient);
     }
+
+    public float queryUserBalance(Long userId) {
+        UserRecord userRecord = queryUser(userId);
+        if (userRecord == null) {
+            return 0.0f;
+        }
+
+        return userRecord.getBalance();
+    }
 }
