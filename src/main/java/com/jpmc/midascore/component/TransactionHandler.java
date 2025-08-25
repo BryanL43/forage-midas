@@ -1,15 +1,10 @@
 package com.jpmc.midascore.component;
 
-import com.jpmc.midascore.entity.UserRecord;
 import com.jpmc.midascore.foundation.Transaction;
-import com.jpmc.midascore.repository.UserRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 public class TransactionHandler {
-    private static final Logger logger = LoggerFactory.getLogger(TransactionHandler.class);
     private final DatabaseConduit databaseConduit;
 
     public TransactionHandler(DatabaseConduit databaseConduit) {
